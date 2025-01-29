@@ -1,6 +1,5 @@
-import Chat from '@/lib/components/Chat'
-import Image from 'next/image'
-
+import Image from "next/image";
+import Chat from "@/lib/components/Chat";
 export default function Home() {
   return (
     <div className="max-w-xl mx-auto p-4">
@@ -9,9 +8,7 @@ export default function Home() {
         Your Digital Marketing Copilot
       </h5>
       <Chat />
-      <h5 className="my-1 pt-3 text-center text-gray-500 border-t-2 border-gray-300">
-        Powered by BISTEC AI
-      </h5>
+      <h5 className="text-center text-gray-500">Powered by BISTEC AI</h5>
     </div>
-  )
+  );
 }

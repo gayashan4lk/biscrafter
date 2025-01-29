@@ -8,7 +8,7 @@ export default function Chat() {
     fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ userMessage: arg }),
+      body: JSON.stringify({ topic: arg }),
     }).then((res) => res.json())
 
   const { trigger, data, error, isMutating } = useSWRMutation(
