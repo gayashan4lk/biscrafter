@@ -1,4 +1,3 @@
-import { StateGraph, END } from "@langchain/langgraph";
 import { ResearcherAgent } from "../agents/researcher";
 import { WriterAgent } from "../agents/writer";
 
@@ -16,31 +15,12 @@ export class BlogWorkflow {
     }
 
     async run(config: BlogWorkflowConfig): Promise<string> {
-        const workflow = new StateGraph({
-            channels: ["research", "blog_post"] as const
-        });
+        // Step 1: Research
+        const research = await this.researcher.execute(config.topic);
 
-        // Add research step
-        workflow.addNode("research", async () => {
-            const research = await this.researcher.execute(config.topic);
-            return { research };
-        });
+        // Step 2: Write
+        const blogPost = await this.writer.execute(research);
 
-        // Add writing step
-        workflow.addNode("write", async (data: { research: string }) => {
-            const blogPost = await this.writer.execute(data.research);
-            return { blog_post: blogPost };
-        });
-
-        // Connect the nodes
-        workflow.addEdge("research", "write");
-        workflow.addEdge("write", END);
-
-        // Set the entry point
-        workflow.setEntryPoint("research");
-
-        // Run the workflow
-        const result = await workflow.invoke({});
-        return result.blog_post as string;
+        return blogPost;
     }
 } 
