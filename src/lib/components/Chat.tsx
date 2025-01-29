@@ -17,6 +17,8 @@ export default function Chat() {
   )
   const [inputText, setInputText] = useState('')
 
+  // console.log(data)
+
   if (isMutating) return <div>Loading...</div>
   if (error) return <div>Error!</div>
 
@@ -45,15 +47,20 @@ export default function Chat() {
         >
           Generate
         </button>
-
         <div>
           {data && (
             <div className="p-3 my-2 rounded-lg bg-white  text-gray-700 w-full">
               {/* <p className="text-xs opacity-60">{data.message.role}</p> */}
-              <p>{data.message}</p>
+              <p>{data.blogPost}</p>
             </div>
           )}
         </div>
+        <button  
+            type="submit"
+            className="py-1 px-2 bg-violet-500 ml-3 hover:bg-violet-700 text-white font-bold rounded-md"
+          >
+            Publish
+          </button>
       </form>
     </div>
   )
